@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMouseLeftClick(Vector2 pos)
     {
-        //Debug.Log(String.Format("Player pos: {0}, Mouse pos: {1}", transform.position, pos));
         StopAllCoroutines();
         StartCoroutine(MoveToClickCoroutine(pos));
     }
@@ -31,5 +30,13 @@ public class PlayerMovement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, pos, _playerSpeed * Time.deltaTime);
             yield return null;
         }           
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag == GameObjectTags.GetEnemyTag())
+        {
+            StopAllCoroutines();
+        }
     }
 }
